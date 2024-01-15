@@ -19,6 +19,21 @@ and output should be generated in below form.
 from datetime import datetime
 
 
+def get_category(age):
+    '''
+    This function takes the calculated age and returns the category that age belongs to.
+    '''
+    if 1 <= age <= 5:
+        category = 'Baby'
+    elif 6 <= age <= 12:
+        category = 'Kid'
+    elif 13 <= age <= 19:
+        category = 'Teen'
+    else:
+        category = 'Adult'
+    return category
+
+
 def age_calculator(input_dates):
     '''
     This is the age_calculator function. It asks the user for input and returns calculated_ages and
@@ -50,17 +65,17 @@ def main():
 
     # Taking user input as "input_dates".
     input_dates = input(
-        'Please enter the dates(MM_DD_YYYY) seperated by commas(,). Example "12_02_2004,01_13_2015"')
+        'Please enter the dates(MM_DD_YYYY) seperated by commas(,). Example "12_02_2004,01_13_2015": ')
     # Calling the "age_calculator" function and storing its values in "age_date" variable.
     age_date = age_calculator(input_dates)
 
     # Printing the output in a specific format.
-    print("        Date        Age        ")
-    print("-------------------------------")
+    print("        Date        Age        Category")
+    print("---------------------------------------")
 
     # Using "zip()" function to iterate over multiple iterables and printing the output in the desired format.
     for age, date in zip(age_date[0], age_date[1]):
-        print(f"    {date}      {age}        ")
+        print(f"     {date}     {age}         {get_category(age)}")
 
 
 # This block of code runs the entire program :)
