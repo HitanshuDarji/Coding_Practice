@@ -12,6 +12,13 @@ and output should be generated in below form.
 <Input Date>          <Calculated Age>
 <Input Date>          <Calculated Age>
 <Input Date>          <Calculated Age>
+
+
+2) Add one more output column Category. This column should show  categories like Baby, Kid,Teen,Adult based on the age criteria. 
+     Age 1 To 5  = Baby
+     Age 6 to 12 = Kid
+     Age 13 to 19 = Teen
+     Age 20 and Above = Adult. 
 '''
 
 
