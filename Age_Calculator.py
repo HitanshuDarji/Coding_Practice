@@ -15,32 +15,28 @@ and output should be generated in below form.
 '''
 
 
-def age_calculator():
+# Import Statements
+from datetime import datetime
+
+
+def age_calculator(input_dates):
     '''
     This is the age_calculator function. It asks the user for input and returns calculated_ages and
     seperated_date_list lists when called.
     '''
 
-    # Taking user input as "input_dates".
-    input_dates = input(
-        'Please enter the dates(MM_DD_YYYY) seperated by commas(,). Example "12_02_2004,01_13_2015"')
-
     # Making a list of individual dates using split().
     seperated_date_list = input_dates.split(',')
-
-    # "year_list" will hold the years extracted from the user input through a for loop.
-    year_list = []
 
     # The "calculated_ages" list will hold the final calculated ages.
     calculated_ages = []
 
-    # This for loop will populate "year_list"
+    # This for loop will populate "calculated_ages"
     for date in seperated_date_list:
-        year_list.append(int(date.split('_')[2]))
-
-    # This loop will populate "calculated_ages".
-    for year in year_list:
-        calculated_ages.append(2024 - year)
+        current_year = datetime.now().year
+        year = int(date.split('_')[2])
+        calculated_age = current_year - year
+        calculated_ages.append(calculated_age)
 
     # This function will return the calculated ages and seperated dates as two seperate lists.
     return calculated_ages, seperated_date_list
@@ -52,8 +48,11 @@ def main():
     format and display the output.
     '''
 
+    # Taking user input as "input_dates".
+    input_dates = input(
+        'Please enter the dates(MM_DD_YYYY) seperated by commas(,). Example "12_02_2004,01_13_2015"')
     # Calling the "age_calculator" function and storing its values in "age_date" variable.
-    age_date = age_calculator()
+    age_date = age_calculator(input_dates)
 
     # Printing the output in a specific format.
     print("        Date        Age        ")
