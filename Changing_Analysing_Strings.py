@@ -19,7 +19,7 @@ def main():
     print("2. Enter a string to find the number of occurances of a word.")
     print("   Enter 0 to exit the program.\n")
 
-    # Initiating the main program loop. This is where the user can interact with the program. Uses some error handling and if
+    # Initiating the main program loop. This is where the user can interact with the program. Used some error handling and if
     # elif blocks to complete the operation
     while True:
 
