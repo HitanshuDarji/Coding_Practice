@@ -3,7 +3,7 @@ def odd_number_remover(user_input_list):
     This function takes a list and returns the same list but without the odd numbers.
     '''
     # Used lambda expressions, map function and filter function to calculate and return a list without odd numbers.
-    return list(filter(lambda num: num % 2 == 1, list(map(lambda item: int(item), user_input_list.split(",")))))
+    return list(filter(lambda num: num % 2 == 0, list(map(lambda item: int(item), user_input_list.split(",")))))
 
 
 def main():
