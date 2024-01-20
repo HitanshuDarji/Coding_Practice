@@ -1,25 +1,9 @@
-def is_odd(number):
-    '''
-    This function checks if a number is odd. It returns a boolean value.
-    '''
-    return (number % 2) == 1
-
-
-def odd_number_remover(list):
+def odd_number_remover(user_input_list):
     '''
     This function takes a list and returns the same list but without the odd numbers.
     '''
-
-    # This line converts the string input to a list of numbers.
-    with_odd_numbers = [int(x) for x in list.split(",")]
-
-    # This loop identifies any odd numbers using the "is_odd" function and then removes them from the list.
-    for number in with_odd_numbers:
-        if is_odd(number):
-            with_odd_numbers.remove(number)
-
-    # Returning the same list but without odd numbers.
-    return with_odd_numbers
+    # Used lambda expressions, map function and filter function to calculate and return a list without odd numbers.
+    return list(filter(lambda num: num % 2 == 1, list(map(lambda item: int(item), user_input_list.split(",")))))
 
 
 def main():

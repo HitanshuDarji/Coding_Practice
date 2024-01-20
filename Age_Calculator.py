@@ -30,14 +30,6 @@ def get_category(age):
     '''
     This function takes the calculated age and returns the category that age belongs to.
     '''
-    # if 1 <= age <= 5:
-    #     category = 'Baby'
-    # elif 6 <= age <= 12:
-    #     category = 'Kid'
-    # elif 13 <= age <= 19:
-    #     category = 'Teen'
-    # else:
-    #     category = 'Adult'
     match age:
         case 1 | 2 | 3 | 4 | 5:
             category = "Baby"
@@ -52,28 +44,10 @@ def get_category(age):
 
 def age_calculator(input_dates):
     '''
-    This is the age_calculator function. It asks the user for input and returns calculated_ages and
-    seperated_date_list lists when called.
+    This is the age_calculator function. It takes the user input and returns a list of calculated ages based on the input.
+    It uses lambda expressions and functions like map and filter to achieve the desired output.
     '''
-
-    # Making a list of individual dates using split().
-    seperated_date_list = input_dates.split(',')
-
-    # The "calculated_ages" list will hold the final calculated ages.
-    calculated_ages = []
-
-    # This for loop will populate "calculated_ages"
-    for date in seperated_date_list:
-        # current_year = datetime.now().year
-        # year = int(date.split('_')[2])
-        # calculated_age = current_year - year
-        date_object = datetime.strptime(date, '%m_%d_%Y')
-        calculated_age = datetime.now().year - date_object.year - ((datetime.now().month,
-                                                                    datetime.now().day) < (date_object.month, date_object.day))
-        calculated_ages.append(calculated_age)
-
-    # This function will return the calculated ages and seperated dates as two seperate lists.
-    return calculated_ages, seperated_date_list
+    return list(map(lambda date: datetime.now().year - datetime.strptime(date, '%m_%d_%Y').year - ((datetime.now().month, datetime.now().day) < (datetime.strptime(date, '%m_%d_%Y').month, datetime.strptime(date, '%m_%d_%Y').day)), input_dates.split(',')))
 
 
 def main():
@@ -93,7 +67,7 @@ def main():
     print("---------------------------------------")
 
     # Using "zip()" function to iterate over multiple iterables and printing the output in the desired format.
-    for age, date in zip(age_date[0], age_date[1]):
+    for age, date in zip(age_date, input_dates.split(',')):
         print(f"     {date}     {age}         {get_category(age)}")
 
 
