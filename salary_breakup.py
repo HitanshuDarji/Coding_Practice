@@ -9,7 +9,7 @@ def annual_ctc_calculator(func):
 
 def other_allowance_calculator(func):
     def wrapper(ctc):
-        other_allowance = ctc * 0.2
+        other_allowance = ctc * 0.3
         result = func(ctc)
         result["Other Allowance"] = other_allowance
         return result
