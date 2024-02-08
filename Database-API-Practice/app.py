@@ -2,9 +2,18 @@ from fastapi import FastAPI
 import cx_Oracle
 from pydantic import BaseModel
 from typing import Optional
-import pandas as pd
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"]
+)
 
 
 def get_db_cursor():
@@ -44,10 +53,11 @@ def list_table_data():
     sqlCmd = "SELECT CID ID, CNAME Name, CCOLOR Color, CFLAVOR Flavor, CORIGIN Origin FROM BVG_COFFEE ORDER BY ID"
     cur.execute(sqlCmd)
     response = cur.fetchall()
+    close_db_cursor(con, cur)
     return_dict = {"items": {}}
     for item in response:
         return_dict["items"].update(
-            {item[0]: {'Name': item[1], 'Color': item[2], 'Flavor': item[3], 'Origin': item[4]}})
+            {item[0]: {'id': item[0], 'Name': item[1], 'Color': item[2], 'Flavor': item[3], 'Origin': item[4]}})
     return return_dict
 
 
@@ -59,6 +69,20 @@ def list_coffee_by_id(coffee_id: int):
         return list_table_data()["items"][coffee_id]
     else:
         return {"ERROR": f"Coffee with the ID {coffee_id} does not exist."}
+
+
+@app.get("/coffees/byname/{coffee_name}")
+def list_coffee_by_name(coffee_name: str):
+    con, cur = get_db_cursor()
+    cur.execute("SELECT CNAME FROM BVG_COFFEE WHERE CNAME=:1", (coffee_name, ))
+    if bool(cur.fetchall()):
+        cur.execute("SELECT * FROM BVG_COFFEE WHERE LOWER(CNAME)=LOWER(:1) OR LOWER(CNAME)=LOWER(:1) OR LOWER(CNAME)=LOWER(:1) OR LOWER(CNAME)=LOWER(:1)",
+                    (coffee_name, ))
+        cname = cur.fetchall()
+        close_db_cursor(con, cur)
+        return {"Name": f"{cname}"}
+    else:
+        return {"ERROR": f"Coffee with the ID {coffee_name} does not exist."}
 
 
 @app.delete("/coffees/delete/{coffee_id}")
@@ -80,7 +104,7 @@ def add_new_row(coffee_id: int, coffee: Coffee):
     """This function adds a new row to the database."""
     con, cur = get_db_cursor()
     cur.execute("SELECT CID FROM BVG_COFFEE WHERE CID=:1", (coffee_id, ))
-    if bool(cur.fetchall()):
+    if not bool(cur.fetchall()):
         sqlCmd = "INSERT INTO BVG_COFFEE VALUES (:1, :2, :3, :4, :5)"
         cur.execute(sqlCmd,  (coffee_id, coffee.name,
                     coffee.color, coffee.flavor, coffee.origin))
