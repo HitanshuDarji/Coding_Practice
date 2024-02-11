@@ -116,26 +116,14 @@ def add_new_row(coffee_id: int, coffee: Coffee):
 
 
 @app.put("/coffees/update/{coffee_id}")
-def update_coffee(coffee_id: int, coffe: UpdateCoffee):
+def update_coffee(coffee_id: int, coffee: UpdateCoffee):
     con, cur = get_db_cursor()
-    cur.execute("SELECT CID FROM BVG_COFFEE WHERe CID=:1", (coffee_id, ))
+    cur.execute("SELECT CID FROM BVG_COFFEE WHERE CID=:1", (coffee_id, ))
     if bool(cur.fetchall()):
-        if coffe.name is not None:
-            sqlCmd = "UPDATE BVG_COFFEE SET CNAME=:1 WHERE CID=:2"
-            cur.execute(sqlCmd, (coffe.name, coffee_id))
-            con.commit()
-        elif coffe.color is not None:
-            sqlCmd = "UPDATE BVG_COFFEE SET CCOLOR=:1 WHERE CID=:2"
-            cur.execute(sqlCmd, (coffe.color, coffee_id))
-            con.commit()
-        elif coffe.flavor is not None:
-            sqlCmd = "UPDATE BVG_COFFEE SET CFLAVOR=:1 WHERE CID=:2"
-            cur.execute(sqlCmd, (coffe.flavor, coffee_id))
-            con.commit()
-        elif coffe.origin is not None:
-            sqlCmd = "UPDATE BVG_COFFEE SET CORIGIN=:1 WHERE CID=:2"
-            cur.execute(sqlCmd, (coffe.origin, coffee_id))
-            con.commit()
+        sqlCmd = "UPDATE BVG_COFFEE SET CNAME=:1, CCOLOR=:2, CFLAVOR=:3, CORIGIN=:4 WHERE CID=:2"
+        cur.execute(sqlCmd, (coffee.name, coffee.color,
+                    coffee.flavor, coffee.origin, coffee_id))
+        con.commit()
         close_db_cursor(con, cur)
         return {"Message": 'The coffee has been updated!'}
     else:

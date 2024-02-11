@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const BASE_URL = "http://127.0.0.1:8000";
 
-const SearchBar = ({setResults}) => {
+const SearchBar = ({setResults, toggleAddModal}) => {
 
     const [userInput, setUserInput] = useState("");
 
@@ -39,8 +39,8 @@ const SearchBar = ({setResults}) => {
                 onChange={(e) => {handleSearch(e.target.value)}}
                 />
             </div>
-            <button className="p-2 text-gray-900 bg-lime-500 rounded-full w-32 font-bold mb-4 drop-shadow-xl hover:bg-lime-600">
-                <Link href="./add-item">Add New +</Link>
+            <button onClick={() => {toggleAddModal(true)}} className="p-2 text-gray-900 bg-lime-500 rounded-full w-32 font-bold mb-4 drop-shadow-xl hover:bg-lime-600">
+                Add New +
             </button>
         </div> 
     );
