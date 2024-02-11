@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import SearchBar from "./search-bar";
 import Modal from "./modal";
-import Link from "next/link";
 import AddItemModal from "./add-item";
 import UpdateItemModal from "./update-item";
 

@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import axios from "axios";
-import { resolve } from "styled-jsx/css";
 
 const BASE_URL = "http://127.0.0.1:8000";
 
