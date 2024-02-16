@@ -32,17 +32,17 @@ const UpdateItemModal = ({item, closeUpdatePanel, reFetchData}) => {
         } catch (error) {
             console.log("Error in updating coffee item", error);
         } finally {
+            await reFetchData();
             closeUpdatePanel(false);
-            reFetchData();
         }
     };
 
 
     return (
-        <div className="fixed flex inset-0 items-center justify-center pt-24 bg-opacity-80 z-50 bg-zinc-600">
-            <form className="bg-gray-900 w-1/3 p-8 mb-48 rounded-xl drop-shadow-2xl">
+        <div className="fixed flex inset-0 items-center justify-center pt-24 bg-opacity-80 z-50 bg-gray-900">
+            <form className="bg-gray-900 w-1/3 p-8 mb-48 rounded-xl drop-shadow-2xl border-2 border-gray-700">
                 <h1 className="pb-8 pt-2 font-bold text-3xl text-center">
-                    Update Item
+                    Edit Item
                 </h1>
                 <div className="flex flex-row items-center justify-between pt-2 pb-2 font-bold">
                     <p>Coffee Name:</p>

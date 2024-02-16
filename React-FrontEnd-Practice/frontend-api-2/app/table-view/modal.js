@@ -12,8 +12,8 @@ function Modal({closeModal, cid, reFetchData}) {
     }
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-zinc-600 bg-opacity-80 z-50">
-            <div className='mb-24 flex flex-col items-start justify-center bg-gray-900 p-8 rounded-xl drop-shadow-2xl'>
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-80 z-50">
+            <div className='mb-24 flex flex-col items-start justify-center bg-gray-900 border-2 border-gray-700 p-8 rounded-xl drop-shadow-2xl'>
                 <div className="flex flex-row w-full justify-end">
                     <button className="text-2xl" onClick={() => {closeModal(false);}}>&times;</button>
                 </div>
@@ -31,7 +31,7 @@ function Modal({closeModal, cid, reFetchData}) {
                             deleteItem()
                         }}
                     >
-                        Delete Item
+                        Proceed
                     </button>
                 </div>
             </div>

@@ -99,20 +99,16 @@ def delete_coffee(coffee_id: str):
         return {"ERROR": f"Coffee with the ID {coffee_id} does not exist."}
 
 
-@app.post("/coffees/add/{coffee_id}")
-def add_new_row(coffee_id: int, coffee: Coffee):
+@app.post("/coffees/add")
+def add_new_row(coffee: Coffee):
     """This function adds a new row to the database."""
     con, cur = get_db_cursor()
-    cur.execute("SELECT CID FROM BVG_COFFEE WHERE CID=:1", (coffee_id, ))
-    if not bool(cur.fetchall()):
-        sqlCmd = "INSERT INTO BVG_COFFEE VALUES (:1, :2, :3, :4, :5)"
-        cur.execute(sqlCmd,  (coffee_id, coffee.name,
-                    coffee.color, coffee.flavor, coffee.origin))
-        con.commit()
-        close_db_cursor(con, cur)
-        return {"Message": f"The coffee {coffee.name} has been added!"}
-    else:
-        return {"ERROR": "A coffee with this ID already exists."}
+    sqlCmd = "INSERT INTO BVG_COFFEE VALUES (coffee_seq.NEXTVAL, :1, :2, :3, :4)"
+    cur.execute(sqlCmd,  (coffee.name,
+                coffee.color, coffee.flavor, coffee.origin))
+    con.commit()
+    close_db_cursor(con, cur)
+    return {"Message": f"The coffee {coffee.name} has been added!"}
 
 
 @app.put("/coffees/update/{coffee_id}")
